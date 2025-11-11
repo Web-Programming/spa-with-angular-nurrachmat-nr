@@ -90,7 +90,17 @@ export interface PropertyItem {
   status: 'Active' | 'Pending' | 'Inactive';
 }
 
-export interface FavoriteItem extends Omit<PropertyItem,'status'> {}
+export interface FavoriteItem {
+  id: number;
+  title: string;
+  location: string;
+  price: number;
+  image: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  rating: number;
+}
 
 export interface HistoryItem {
   icon: string;      // e.g. 'bi-check-circle-fill'
@@ -100,6 +110,13 @@ export interface HistoryItem {
   time: string;      // e.g. '2 hari yang lalu'
   badge?: string;    // e.g. 'Rp 5.000.000'
   badgeColor?: 'success' | 'primary' | 'info' | 'warning' | 'danger';
+}
+
+export interface SocialLinks {
+  facebook?: string;
+  twitter?: string;
+  instagram?: string;
+  linkedin?: string;
 }
 ```
 
@@ -118,20 +135,20 @@ rem Jalankan dari folder project (griya-mdp)
 cd griya-mdp
 
 rem Komponen header profil
-ng g c src/app/profile/components/profile-header --standalone --flat --skip-tests
+ng g c profile/components/profile-header --skip-tests
 
 rem Komponen kartu sidebar
-ng g c src/app/profile/components/stats-card --standalone --flat --skip-tests
-ng g c src/app/profile/components/about-card --standalone --flat --skip-tests
-ng g c src/app/profile/components/social-card --standalone --flat --skip-tests
+ng g c profile/components/stats-card --skip-tests
+ng g c profile/components/about-card --skip-tests
+ng g c profile/components/social-card --skip-tests
 
 rem Komponen item pada tabs
-ng g c src/app/profile/components/property-item --standalone --flat --skip-tests
-ng g c src/app/profile/components/favorite-item --standalone --flat --skip-tests
-ng g c src/app/profile/components/history-item --standalone --flat --skip-tests
+ng g c profile/components/property-item --skip-tests
+ng g c profile/components/favorite-item --skip-tests
+ng g c profile/components/history-item --skip-tests
 ```
-
-`--flat` menaruh file langsung pada folder komponen tanpa subfolder tambahan.
+gunakan `--skip-tests` agat tidak dibuatkan file *.spec.ts.
+gunakan `--flat` untuk menaruh file langsung pada folder komponen tanpa subfolder tambahan.
 
 ---
 
@@ -209,13 +226,7 @@ File: `components/social-card/social-card.ts`
 ```ts
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface SocialLinks {
-  facebook?: string;
-  twitter?: string;
-  instagram?: string;
-  linkedin?: string;
-}
+import { SocialLinks } from '../../profile.models';
 
 @Component({
   selector: 'app-social-card',
@@ -250,6 +261,14 @@ export class PropertyItemComponent {
   @Input() item!: PropertyItem;
   @Output() edit = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
+
+  onEdit() {
+    this.edit.emit(this.item.id);
+  }
+
+  onRemove() {
+    this.remove.emit(this.item.id);
+  }
 }
 ```
 
@@ -316,6 +335,7 @@ import { SocialCardComponent } from './components/social-card/social-card';
 import { PropertyItemComponent } from './components/property-item/property-item';
 import { FavoriteItemComponent } from './components/favorite-item/favorite-item';
 import { HistoryItemComponent } from './components/history-item/history-item';
+import { UserProfile, StatsSummary, PropertyItem, FavoriteItem, HistoryItem, SocialLinks } from './profile.models';
 
 @Component({
   selector: 'app-profile',
@@ -351,24 +371,26 @@ export class Profile { /* ...existing logic... */ }
 - Sidebar kiri:
 
 ```html
-<app-stats-card [stats]="{ properties: stats.properties, favorites: stats.favorites, rating: stats.rating, memberSince: user.memberSince }"></app-stats-card>
+<app-stats-card [stats]="stats"></app-stats-card>
 
 <app-about-card [user]="user"></app-about-card>
 
-<app-social-card [links]="{ facebook: '#', twitter: '#', instagram: '#', linkedin: '#' }"></app-social-card>
+<app-social-card [links]="socialLinks"></app-social-card>
 ```
 
 - Tab "Properti Saya":
 
 ```html
 <div class="row g-4">
-  <div class="col-md-6" *ngFor="let p of properties">
-    <app-property-item
-      [item]="p"
-      (edit)="onEditProperty($event)"
-      (remove)="onDeleteProperty($event)"
-    ></app-property-item>
-  </div>
+    @for (property of properties; track $index) {
+        <div class="col-md-6">
+            <app-property-item 
+                [item]="property" 
+                (edit)="onEditProperty($event)" 
+                (remove)="onDeleteProperty($event)">
+            </app-property-item>
+        </div>
+    }
   <!-- Card tambah properti tetap di parent atau buat komponen AddCard terpisah -->
 </div>
 ```
@@ -377,9 +399,11 @@ export class Profile { /* ...existing logic... */ }
 
 ```html
 <div class="row g-4">
-  <div class="col-md-6" *ngFor="let f of favorites">
-    <app-favorite-item [item]="f"></app-favorite-item>
-  </div>
+    @for (favorite of favorites; track $index) {
+        <div class="col-md-6">
+            <app-favorite-item [item]="favorite"></app-favorite-item>
+        </div>
+    }
 </div>
 ```
 
@@ -387,7 +411,15 @@ export class Profile { /* ...existing logic... */ }
 
 ```html
 <div class="timeline">
-  <app-history-item *ngFor="let h of history" [item]="h"></app-history-item>
+    @for (item of history; track $index; let last = $last) {
+        <app-history-item 
+            [item]="item"
+            [class.border-bottom-0]="last"
+            [class.border-bottom]="!last"
+            [class.mb-4]="!last"
+            [class.pb-4]="!last">
+        </app-history-item>
+    }
 </div>
 ```
 
