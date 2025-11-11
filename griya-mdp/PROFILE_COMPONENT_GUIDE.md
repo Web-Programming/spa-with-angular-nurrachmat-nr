@@ -782,6 +782,13 @@ export class Profile {
     rating: 4.8
   };
 
+  socialLinks = {
+    facebook: '#',
+    twitter: '#',
+    instagram: '#',
+    linkedin: '#'
+  };
+
   properties = [
     {
       id: 1,
@@ -798,6 +805,17 @@ export class Profile {
   ];
 
   favorites = [
+    {
+      id: 101,
+      title: 'Beautiful Villa',
+      location: 'Bali, Indonesia',
+      price: 20000000,
+      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=250&fit=crop',
+      bedrooms: 5,
+      bathrooms: 4,
+      area: 200,
+      rating: 4.9
+    }
     // ... favorite properties
   ];
 
@@ -869,65 +887,6 @@ Update `profile.html` untuk menggunakan data dari TypeScript:
 </div>
 ```
 
-### C. Integrasi dengan Backend API (Service Awal)
-
-Buat service untuk fetch data:
-
-```typescript
-// profile.service.ts
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class ProfileService {
-  private apiUrl = 'http://localhost:3000';
-
-  constructor(private http: HttpClient) {}
-
-  getUserProfile(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/profile`);
-  }
-
-  getUserProperties(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/profile/properties`);
-  }
-
-  updateProfile(data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/profile`, data);
-  }
-
-  deleteProperty(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/properties/${id}`);
-  }
-}
-```
-
-### D. Tambahkan Upload Photo Functionality (Opsional Awal)
-
-```typescript
-onFileSelected(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.user.avatar = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-}
-```
-
-```html
-<input type="file" #fileInput (change)="onFileSelected($event)" 
-       accept="image/*" style="display: none;">
-<button (click)="fileInput.click()" class="btn btn-sm btn-primary">
-  <i class="bi bi-camera me-2"></i>Change Photo
-</button>
-```
-
 ---
 
 ## Referensi
@@ -953,7 +912,6 @@ Dengan mengikuti panduan ini, Anda telah berhasil membuat Profile Component yang
 - ✅ Property management dengan CRUD actions
 - ✅ Timeline-style history
 - ✅ Social media integration
-- ✅ Siap untuk integrasi dengan backend
 
 ---
 
