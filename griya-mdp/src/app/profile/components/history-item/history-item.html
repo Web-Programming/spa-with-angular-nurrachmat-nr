@@ -1,0 +1,30 @@
+<div class="d-flex mb-4 pb-4 border-bottom">
+  <div class="flex-shrink-0 me-3">
+    <div class="rounded-circle p-3"
+         [ngClass]="{
+           'bg-success bg-opacity-10': item.iconColor === 'success',
+           'bg-primary bg-opacity-10': item.iconColor === 'primary',
+           'bg-info bg-opacity-10': item.iconColor === 'info',
+           'bg-warning bg-opacity-10': item.iconColor === 'warning',
+           'bg-danger bg-opacity-10': item.iconColor === 'danger'
+         }">
+      <i class="fs-4"
+         [ngClass]="[item.icon, 'text-' + item.iconColor]"></i>
+    </div>
+  </div>
+  <div class="flex-grow-1">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+      <div>
+        <h6 class="mb-1 fw-bold">{{ item.title }}</h6>
+        <p class="text-muted mb-1">{{ item.description }}</p>
+      </div>
+      <small class="text-muted">{{ item.time }}</small>
+    </div>
+    @if (item.badge) {
+      <span class="badge"
+        [ngClass]="'bg-' + (item.badgeColor || item.iconColor)">
+      {{ item.badge }}
+      </span>
+    }
+  </div>
+</div>

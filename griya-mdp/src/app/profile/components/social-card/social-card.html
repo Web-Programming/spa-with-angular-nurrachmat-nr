@@ -1,0 +1,22 @@
+<!-- Social Links Card -->
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-white border-0 py-3">
+    <h5 class="mb-0 fw-bold">
+      <i class="bi bi-share-fill text-primary me-2"></i>Sosial Media
+    </h5>
+  </div>
+  <div class="card-body">
+    <a *ngIf="links.facebook" [href]="links.facebook" class="btn btn-outline-primary w-100 mb-2">
+      <i class="bi bi-facebook me-2"></i>Facebook
+    </a>
+    <a *ngIf="links.twitter" [href]="links.twitter" class="btn btn-outline-info w-100 mb-2">
+      <i class="bi bi-twitter me-2"></i>Twitter
+    </a>
+    <a *ngIf="links.instagram" [href]="links.instagram" class="btn btn-outline-danger w-100 mb-2">
+      <i class="bi bi-instagram me-2"></i>Instagram
+    </a>
+    <a *ngIf="links.linkedin" [href]="links.linkedin" class="btn btn-outline-primary w-100">
+      <i class="bi bi-linkedin me-2"></i>LinkedIn
+    </a>
+  </div>
+</div>
