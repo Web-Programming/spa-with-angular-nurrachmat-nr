@@ -39,4 +39,13 @@ export class LokasiPerumahan {
     const emptyStars = 5 - fullStars - hasHalf;
     return Array(emptyStars).fill(0);
   }
+  
+  // Format harga ke Rupiah
+  formatPrice(price: number): string {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(price);
+  }
 }

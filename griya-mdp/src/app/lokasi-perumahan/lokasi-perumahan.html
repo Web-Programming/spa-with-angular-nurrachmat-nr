@@ -30,7 +30,7 @@
 
     <!-- Price -->
     <div class="mb-3">
-      <h4 class="text-primary fw-bold mb-0">{{ housing.price | currency:'IDR':'symbol':'1.0-0' }}</h4>
+      <h4 class="text-primary fw-bold mb-0">{{ formatPrice(housing.price) }}</h4>
       <small class="text-muted">Harga mulai dari</small>
     </div>
 
