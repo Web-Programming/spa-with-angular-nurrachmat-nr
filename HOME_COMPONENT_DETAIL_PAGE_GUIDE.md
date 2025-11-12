@@ -1,6 +1,35 @@
 # Panduan Detail Page Component (Angular + Bootstrap 5)
 
-Dokumen ini menjelaskan langkah-langkah implementasi halaman detail properti untuk aplikasi **Griya MDP** menggunakan Angular dan Bootstrap 5 dengan **data lokal** (tanpa integrasi API).
+## 📖 Deskripsi
+
+Dokumen ini adalah panduan lengkap untuk mengimplementasikan halaman detail properti pada aplikasi **Griya MDP** menggunakan Angular dan Bootstrap 5. Panduan ini menggunakan pendekatan **data lokal** (shared data file) sebagai single source of truth, sehingga mudah dipahami untuk tahap pembelajaran dan dapat dengan mudah dimigrasi ke integrasi API di masa mendatang.
+
+### 🎯 Apa yang Akan Anda Pelajari?
+
+- ✅ Membuat komponen detail page yang interaktif dan responsif
+- ✅ Mengimplementasikan shared data file untuk menghindari duplikasi kode
+- ✅ Menggunakan Angular routing dengan dynamic parameter (`:id`)
+- ✅ Menampilkan data properti secara detail dengan Bootstrap 5
+- ✅ Menangani loading state dan error handling
+- ✅ Navigasi antar halaman menggunakan RouterLink
+- ✅ Styling modern dengan CSS dan Bootstrap utilities
+
+### 🌟 Keunggulan Pendekatan Ini
+
+1. **Single Source of Truth** - Data properti disimpan di satu file (`housing-data.ts`) yang digunakan oleh semua komponen
+2. **DRY Principle** - Menghindari duplikasi data dan kode
+3. **Mudah Maintenance** - Update data cukup di satu tempat saja
+4. **Siap Migrasi** - Struktur kode sudah siap untuk integrasi dengan API/backend
+5. **Best Practice** - Mengikuti Angular style guide dan modern development patterns
+
+### 📋 Prerequisites
+
+Sebelum memulai, pastikan Anda sudah:
+- Memiliki basic knowledge tentang Angular dan TypeScript
+- Memahami konsep routing di Angular
+- Familiar dengan Bootstrap 5
+- Sudah membuat Home Component dan Lokasi Perumahan Component
+- Sudah membuat Housing model (`housing.model.ts`)
 
 ---
 
