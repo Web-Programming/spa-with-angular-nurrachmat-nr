@@ -35,7 +35,7 @@ Dokumentasi ini merangkum roadmap lengkap implementasi Home Component untuk apli
 
 ## 🗺️ Roadmap Implementasi
 
-### Phase 1: Implementasi Dasar (Branch: `home-component-impl`) ✅
+### Phase 1: Implementasi Dasar (Branch: [home-component-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-impl)) ✅
 
 **📍 Anda Berada di Sini**
 
@@ -67,7 +67,7 @@ Dokumentasi ini merangkum roadmap lengkap implementasi Home Component untuk apli
 
 ---
 
-### Phase 2: Implementasi Data List dan Dinamic Data Binding (Branch: `home-component-next-impl`) 🚀
+### Phase 2: Implementasi Data List dan Dinamic Data Binding (Branch: [home-component-next-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-impl)) 🚀
 
 **Implementasi lanjutan**
 
@@ -110,7 +110,7 @@ Dokumentasi ini merangkum roadmap lengkap implementasi Home Component untuk apli
 
 ---
 
-### Phase 3: Data Management & Detail Page (Branch: `home-component-detail-impl`) 🚀
+### Phase 3: Data Management & Detail Page (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-detail-impl)) 🚀
 
 **Implementasi lanjutan**
 
