@@ -41,46 +41,28 @@ Dokumentasi ini merangkum roadmap lengkap implementasi aplikasi **Griya MDP** (R
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_GUIDE.md`
-- **Isi:** Tutorial lengkap implementasi dasar
-
----
+- **Isi:** Tutorial lengkap implementasi dasar dan code examples lengkap
 
 ### Phase 2: Implementasi Data List dan Dinamic Data Binding (Branch: [home-component-next-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_GUIDE.md`
 - **Isi:** 
-  - Tutorial step-by-step implementasi dynamic data
-  - TypeScript interface definition
-  - Data structure examples
-  - Filter implementation guide
-  - Code examples lengkap
-
----
+  - Tutorial step-by-step implementasi dan code examples lengkap
 
 ### Phase 3: Data Management & Detail Page (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-detail-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_DETAIL_PAGE_GUIDE.md`
 - **Isi:** 
-  - Tutorial step-by-step
-  - Test scenarios
-  - Troubleshooting guide
-  - Code examples lengkap
-
----
-
----
+  - Tutorial step-by-step dan code examples lengkap
 
 ### Phase 3: Integration With API (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-api-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_API_GUIDE.md`
 - **Isi:** 
-  - Tutorial step-by-step
-  - Test scenarios
-  - Troubleshooting guide
-  - Code examples lengkap
+  - Tutorial step-by-step dan code examples lengkap
 
 ---
 
@@ -90,20 +72,15 @@ Dokumentasi ini merangkum roadmap lengkap implementasi aplikasi **Griya MDP** (R
 
 #### 📖 Dokumentasi:
 - **File:** `PROFILE_COMPONENT_GUIDE.md`
-- **Isi:** Tutorial lengkap implementasi dasar
+- **Isi:** Tutorial lengkap implementasi dasar dan code examples lengkap
 
----
 
 ### Phase 2: Implementasi Data Profile dan Dinamic Data Binding (Branch: [profile-component-next-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/profile-component-next-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `PROFILE_COMPONENT_GUIDE.md`
 - **Isi:** 
-   - Tutorial step-by-step implementasi dynamic data
-   - TypeScript interface definition
-   - Data structure examples
-   - Filter implementation guide
-   - Code examples lengkap
+   - Tutorial step-by-step implementasi dan code examples lengkap
 
 ---
 
@@ -136,7 +113,6 @@ Dokumentasi ini merangkum roadmap lengkap implementasi aplikasi **Griya MDP** (R
 - **Isi:** Tutorial lengkap implementasi dasar
 
 ---
-
 
 ## 🌲 Branch Structure
 
