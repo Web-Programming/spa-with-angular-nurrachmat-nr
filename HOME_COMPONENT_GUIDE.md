@@ -1,6 +1,6 @@
 # Panduan Desain Component Home (Angular + Bootstrap 5)
 
-Dokumen ini menjelaskan langkah-langkah mendesain halaman Home untuk aplikasi **Griya MDP** menggunakan Angular dan Bootstrap 5. Halaman ini menampilkan daftar perumahan dengan komponen `lokasi-perumahan`.
+Panduan ini menjelaskan desain dan implementasi Home component untuk aplikasi Griya MDP menggunakan Angular dan Bootstrap 5. Mencakup struktur file, langkah pembuatan Hero, Features, Properties (grid responsif dengan komponen reusable `lokasi-perumahan`), dan CTA, serta penggunaan RouterLink, CommonModule, dan Bootstrap Icons, berikut arahan pengembangan lanjutan melalui branch repository terkait.
 
 ---
 
@@ -405,82 +405,16 @@ File: `src/app/lokasi-perumahan/lokasi-perumahan.html`
 ---
 
 ## 🚀 Pengembangan Lanjutan
+- [ ] Dynamic data binding dengan TypeScript interface
+- [ ] Filter properti berdasarkan tipe (rumah, apartemen, villa)
+- [ ] Currency formatting untuk harga dalam Rupiah
+- [ ] Dynamic star rating display
+- [ ] Responsive grid layout (Bootstrap 5)
+- [ ] Conditional styling untuk status properti
 
-### 1. Dynamic Data dengan @Input()
-
-**Parent (home.ts):**
-```typescript
-housingList = [
-  { id: 1, name: 'Villa A', price: 850000000, ... },
-  { id: 2, name: 'Villa B', price: 650000000, ... }
-];
-```
-
-**Parent (home.html):**
-```html
-<div class="col-md-6 col-lg-4" *ngFor="let house of housingList">
-  <app-lokasi-perumahan [housing]="house"></app-lokasi-perumahan>
-</div>
-```
-
-**Child (lokasi-perumahan.ts):**
-```typescript
-import { Component, Input } from '@angular/core';
-
-export class LokasiPerumahan {
-  @Input() housing: any;
-}
-```
-
-**Child (lokasi-perumahan.html):**
-```html
-<h5 class="card-title">{{ housing.name }}</h5>
-<h4 class="text-primary">{{ housing.price | currency:'IDR':'symbol':'1.0-0' }}</h4>
-```
-
----
-
-### 2. Backend Integration
-
-```typescript
-import { HttpClient } from '@angular/common/http';
-
-export class Home {
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    this.http.get('/api/housing').subscribe(data => {
-      this.housingList = data;
-    });
-  }
-}
-```
-
----
-
-### 3. Filter & Search Functionality
-
-```typescript
-export class Home {
-  housingList = [...];
-  filteredList = [...];
-  
-  filterByType(type: string) {
-    if (type === 'all') {
-      this.filteredList = this.housingList;
-    } else {
-      this.filteredList = this.housingList.filter(h => h.type === type);
-    }
-  }
-}
-```
-
-```html
-<button (click)="filterByType('rumah')">Rumah</button>
-<button (click)="filterByType('apartemen')">Apartemen</button>
-```
-
----
+**Instruksi Implementasi Pengembangan Lanjutan:**
+1. Akses github repository pada branch `home-component-next-impl` atau akses [link repository berikut](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-impl)
+2. Ikuti tutorial langkah demi langkah pada file HOME_COMPONENT_GUIDE.md
 
 ## 📝 Checklist Implementasi
 
@@ -492,9 +426,6 @@ export class Home {
 - [x] Responsive design untuk mobile, tablet, desktop
 - [x] Bootstrap Icons untuk visual menarik
 - [x] RouterLink untuk navigasi ke halaman Contact
-- [ ] Implementasi @Input() untuk data dinamis
-- [ ] Integrasi dengan backend API
-- [ ] Filter dan search functionality
 
 ---
 
