@@ -1,6 +1,14 @@
 # Panduan Desain Component Home (Angular + Bootstrap 5)
 
-Dokumen ini menjelaskan langkah-langkah mendesain halaman Home untuk aplikasi **Griya MDP** menggunakan Angular dan Bootstrap 5. Halaman ini menampilkan daftar perumahan dengan komponen `lokasi-perumahan`.
+Dokumen ini menjelaskan implementasi halaman Home untuk aplikasi **Griya MDP** menggunakan Angular dan Bootstrap 5. Halaman ini menampilkan daftar perumahan dengan fitur filtering dinamis, komunikasi parent-child component melalui `@Input()`, dan integrasi Bootstrap 5 untuk desain responsif. Komponen utama yang digunakan adalah `lokasi-perumahan` sebagai reusable card component.
+
+**Fitur yang sudah diimplementasikan:**
+- ✅ Dynamic data binding dengan TypeScript interface
+- ✅ Filter properti berdasarkan tipe (rumah, apartemen, villa)
+- ✅ Currency formatting untuk harga dalam Rupiah
+- ✅ Dynamic star rating display
+- ✅ Responsive grid layout (Bootstrap 5)
+- ✅ Conditional styling untuk status properti
 
 ---
 
