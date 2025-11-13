@@ -57,7 +57,7 @@ Dokumentasi ini merangkum roadmap lengkap implementasi aplikasi **Griya MDP** (R
 - **Isi:** 
   - Tutorial step-by-step dan code examples lengkap
 
-### Phase 3: Integration With API (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-api-impl)) 🚀
+### Phase 4: Integration With API (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-api-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_API_GUIDE.md`
