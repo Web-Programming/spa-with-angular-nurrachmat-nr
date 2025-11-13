@@ -1,38 +1,66 @@
 const mongoose = require("mongoose");
 
 const housingSchema = new mongoose.Schema({
-    idhousing: {
+    id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    price: {
         type: Number,
         required: true
     },
-    name: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    photo: {
-        type: String,
-        required: true
-    },
-    availableUnits: {
+    bedrooms: {
         type: Number,
         required: true
     },
-    wifi: {
-        type: Boolean,
+    bathrooms: {
+        type: Number,
         required: true
     },
-    laundry: {
-        type: Boolean,
+    area: {
+        type: Number,
         required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 5
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: ['Available', 'Pending', 'Sold']
+    },
+    type: {
+        type: String,
+        required: false,
+        enum: ['rumah', 'apartemen', 'villa']
+    },
+    description: {
+        type: String,
+        required: false
+    },
+    postedDays: {
+        type: Number,
+        required: false,
+        min: 0
     }
+}, {
+    timestamps: true // Adds createdAt and updatedAt fields
 });
 
 const Housing = mongoose.model('Housing', housingSchema);
