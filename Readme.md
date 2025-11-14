@@ -37,27 +37,27 @@ Dokumentasi ini merangkum roadmap lengkap implementasi aplikasi **Griya MDP** (R
 
 ## 🗺️ Roadmap Implementasi Home Component
 
-### Phase 1: Implementasi Dasar (Branch: [home-component-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-impl)) 🚀
+### Part 1: Implementasi Dasar (Branch: [home-component-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_GUIDE.md`
 - **Isi:** Tutorial lengkap implementasi dasar dan code examples lengkap
 
-### Phase 2: Implementasi Data List dan Dinamic Data Binding (Branch: [home-component-next-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-impl)) 🚀
+### Part 2: Implementasi Data List dan Dinamic Data Binding (Branch: [home-component-next-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_GUIDE.md`
 - **Isi:** 
   - Tutorial step-by-step implementasi dan code examples lengkap
 
-### Phase 3: Data Management & Detail Page (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-detail-impl)) 🚀
+### Part 3: Data Management & Detail Page (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-detail-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_DETAIL_PAGE_GUIDE.md`
 - **Isi:** 
   - Tutorial step-by-step dan code examples lengkap
 
-### Phase 4: Integration With API (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-api-impl)) 🚀
+### Part 4: Integration With API (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-api-impl)) 🚀
 
 #### 📖 Dokumentasi:
 - **File:** `HOME_COMPONENT_API_GUIDE.md`

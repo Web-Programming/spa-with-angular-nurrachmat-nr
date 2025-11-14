@@ -22,7 +22,6 @@ griya-mdp-backend/
 ├── app_server/
 │   ├── controllers/
 │   │   ├── housingcontroller.js  # Controller untuk housing
-│   │   ├── mahasiswacontroller.js
 │   │   └── main.js
 │   ├── models/
 │   │   ├── db.js                 # Konfigurasi koneksi MongoDB
