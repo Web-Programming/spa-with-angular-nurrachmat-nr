@@ -1,28 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Housing } from './housing.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-lokasi-perumahan',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './lokasi-perumahan.html',
   styleUrl: './lokasi-perumahan.css',
 })
 export class LokasiPerumahan {
-  @Input() housing: Housing = {
-    id: 0,
-    title: 'Griya Asri Residence',
-    location: 'Jakarta Selatan',
-    price: 850000000,
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 120,
-    image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&h=400&fit=crop',
-    rating: 4.5,
-    status: 'Available',
-    description: 'Hunian modern dengan desain minimalis, dilengkapi fasilitas lengkap dan akses mudah ke berbagai tempat strategis.',
-    postedDays: 2
-  };
+  @Input() housing!: Housing;
 
   getStars(): number[] {
     const fullStars = Math.floor(this.housing.rating);
