@@ -1,218 +1,226 @@
-# 🏠 Griya MDP - Roadmap Implementasi Home Component
+# Panduan Implementasi Griya MDP - Single Page Application
 
-Dokumentasi ini merangkum roadmap lengkap implementasi Home Component untuk aplikasi **Griya MDP** (Real Estate Website) menggunakan Angular 20+ dan Bootstrap 5.
+## Deskripsi Project
+**Griya MDP** adalah aplikasi Single Page Application (SPA) berbasis Angular untuk platform properti (real estate). Aplikasi ini menyediakan fitur pencarian, detail properti, kontak, registrasi, dan login dengan desain modern menggunakan Bootstrap 5.
 
----
+## Instalasi dan Setup
 
-## 📚 Daftar Isi
+### 1. Prerequisites
+Pastikan sudah terinstall:
+- Node.js (v20+)
+- npm (v10+)
+- Angular CLI (v18+)
 
-1. [Tentang Proyek](#-tentang-proyek)
-2. [Roadmap Implementasi](#-roadmap-implementasi)
-3. [Branch Structure](#-branch-structure)
-4. [Cara Mengikuti Tutorial](#-cara-mengikuti-tutorial)
-5. [Tech Stack](#-tech-stack)
-6. [Fitur yang Diimplementasikan](#-fitur-yang-diimplementasikan)
-
----
-
-## 🎯 Tentang Proyek
-
-**Griya MDP** adalah aplikasi Single Page Application (SPA) untuk platform real estate yang menampilkan:
-- Listing properti (rumah, apartemen, villa)
-- Detail properti
-- Fitur pencarian dan filter
-- Responsive design untuk semua device
-
-**Tujuan Pembelajaran:**
-- Memahami konsep SPA dengan Angular
-- Implementasi component-based architecture
-- Menggunakan Bootstrap 5 untuk UI/UX
-- Routing dan navigation
-- Data management (local dan API)
-- Best practices Angular development
-
----
-
-## 🗺️ Roadmap Implementasi
-
-### Phase 1: Implementasi Dasar (Branch: [home-component-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-impl)) 
-
-**✅ Telah Diimplementasikan**
-
----
-
-### Phase 2: Implementasi Data List dan Dinamic Data Binding (Branch: [home-component-next-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-next-impl)) ✅
-
-**📍 Anda Berada di Sini**
-
-#### Yang Akan Diimplementasikan:
-
-1. **Data List Implementation** 🆕
-   - ✅ TypeScript interface untuk Property model
-   - ✅ Array data properti dengan tipe yang berbeda
-   - ✅ Property type enumeration (rumah, apartemen, villa)
-   - ✅ Structured data dengan semua atribut lengkap
-
-2. **Dynamic Data Binding** 🆕
-   - ✅ *ngFor directive untuk render properti list
-   - ✅ Property interpolation untuk data display
-   - ✅ Dynamic image binding
-   - ✅ Conditional rendering dengan *ngIf
-   - ✅ Class binding untuk status properti
-
-3. **Filter & Formatting** 🆕
-   - ✅ Filter properti berdasarkan tipe (rumah, apartemen, villa)
-   - ✅ Currency pipe untuk format harga Rupiah (Rp)
-   - ✅ Custom formatting untuk number display
-   - ✅ Dynamic badge styling berdasarkan status
-
-4. **UI Enhancements** 🆕
-   - ✅ Dynamic star rating display (1-5 bintang)
-   - ✅ Responsive grid layout dengan Bootstrap 5
-   - ✅ Conditional styling untuk status (dijual, disewa, terjual)
-   - ✅ Icon integration untuk features
-   - ✅ Hover effects dan transitions
-
-#### 📖 Dokumentasi:
-- **File:** `HOME_COMPONENT_GUIDE.md`
-- **Isi:** 
-  - Tutorial step-by-step implementasi dynamic data
-  - TypeScript interface definition
-  - Data structure examples
-  - Filter implementation guide
-  - Code examples lengkap
-
----
-
-### Phase 3: Data Management & Detail Page (Branch: [home-component-detail-impl](https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr/tree/home-component-detail-impl)) 🚀
-
-**Implementasi lanjutan**
-
-#### Yang Akan Diimplementasikan:
-
-1. **Shared Data File** 🆕
-   - ✅ Buat folder `src/app/data/`
-   - ✅ File `housing-data.ts` (Single Source of Truth)
-   - ✅ Export HOUSING_DATA constant
-   - ✅ Refactor Home Component untuk pakai shared data
-   - ✅ DRY Principle - no code duplication
-
-2. **Detail Page Component** 🆕
-   - ✅ Generate detail component dengan CLI
-   - ✅ Component logic dengan local data
-   - ✅ Template dengan 3 states (loading, error, content)
-   - ✅ Responsive 2-column layout
-   - ✅ Helper methods (formatPrice, getStatusClass, etc.)
-
-3. **Routing & Navigation** 🆕
-   - ✅ Dynamic route `/property/:id`
-   - ✅ ActivatedRoute untuk parameter extraction
-   - ✅ RouterLink integration di card component
-   - ✅ Breadcrumb navigation
-   - ✅ Back button functionality
-
-4. **UX Enhancements** 🆕
-   - ✅ Loading spinner (500ms simulation)
-   - ✅ Error handling (invalid ID)
-   - ✅ Smooth navigation
-   - ✅ Conditional rendering
-
-#### 📖 Dokumentasi:
-- **File:** `HOME_COMPONENT_DETAIL_PAGE_GUIDE.md`
-- **Isi:** 
-  - Tutorial step-by-step
-  - Test scenarios
-  - Troubleshooting guide
-  - Code examples lengkap
-
----
-
-
-## 🌲 Branch Structure
-
-```
-main
-│
-├── home-component-impl (SELESAI) ✅
-│   │
-│   ├── ✅ Home Component (basic)
-│   ├── ✅ Lokasi Perumahan Component
-│   ├── ✅ Static data
-│   ├── ✅ Responsive design
-│   └── 📄 HOME_COMPONENT_GUIDE.md
-│
-├── home-component-next-impl (📍 SAAT INI)
-│   │
-│   ├── ✅ Dynamic data binding dengan TypeScript interface
-│   ├── ✅ Filter properti berdasarkan tipe (rumah, apartemen, villa)
-│   ├── ✅ Currency formatting untuk harga dalam Rupiah
-│   ├── ✅ Dynamic star rating display
-│   ├── ✅ Responsive grid layout (Bootstrap 5)
-│   ├── ✅ Conditional styling untuk status properti
-│   └── 📄 HOME_COMPONENT_GUIDE.md
-│
-└── home-component-detail-impl (🚀 SELANJUTNYA)
-    │
-    ├── ✅ Shared Data File
-    ├── ✅ Detail Page Component
-    └── 📄 HOME_COMPONENT_DETAIL_PAGE_GUIDE.md    
-```
-
----
-
-## 📖 Cara Mengakses Repository
-
-### Step 1: Clone Repository
-
-```bash
-git clone https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr.git
-cd spa-with-angular-nurrachmat-nr
-```
-
-### Step 2: Install Dependencies
-
+### 2. Install Dependencies
 ```bash
 cd griya-mdp
 npm install
 ```
 
-### Step 3: Ikuti Phase 1 (Basic Implementation)
-
+### 3. Jalankan Development Server
 ```bash
-# Pastikan Anda di branch home-component-detail-impl
-git checkout home-component-impl
-
-# Baca dokumentasi
-HOME_COMPONENT_GUIDE.md
-
-# Jalankan aplikasi
-npm start
+ng serve
 ```
 
-**Buka browser:** `http://localhost:4200`
+Akses aplikasi di: `http://localhost:4200`
 
-### Step 4: Lanjut ke Phase 2 (Dinamic data)
+---
 
-```bash
-# Pindah ke branch selanjutnya
-git checkout home-component-next-impl
+## Panduan Implementasi Components
 
-# Baca dokumentasi lanjutan
-HOME_COMPONENT_GUIDE.md
+### 📝 **1. Implementasi Register Component**
 
-# Jalankan aplikasi
-npm start
+**Tujuan:** Membuat halaman registrasi user baru dengan validasi form yang lengkap.
+
+**Fitur:**
+- Form dengan 3 fields: Nama, Email, Password
+- Validasi real-time (required, minLength, email format)
+- Visual feedback (error messages, helper text)
+- Terms & Conditions checkbox
+- Benefits info cards
+- Link navigasi ke Login page
+
+**📚 Dokumentasi Lengkap:** [REGISTER_COMPONENT_GUIDE.md](./REGISTER_COMPONENT_GUIDE.md)
+
+**Waktu estimasi:** 20 menit
+
+---
+
+### 🔐 **2. Implementasi Login Component**
+
+**Tujuan:** Membuat halaman autentikasi untuk existing users.
+
+**Fitur:**
+- Form dengan 2 fields: Email (sebagai username), Password
+- Validasi real-time (required, email, minLength)
+- Remember Me checkbox
+- Forgot Password link
+- Social Login UI (Google & Facebook)
+- Security info alert
+- Link navigasi ke Register page
+
+**📚 Dokumentasi Lengkap:** [LOGIN_COMPONENT_GUIDE.md](./LOGIN_COMPONENT_GUIDE.md)
+
+**Waktu estimasi:** 10 menit
+
+---
+
+### 📧 **3. Implementasi Contact Component**
+
+**Tujuan:** Membuat halaman kontak dengan form untuk menghubungi perusahaan.
+
+**📚 Dokumentasi Lengkap:** [CONTACT_COMPONENT_IMPLEMENTATION_GUIDE.md](./CONTACT_COMPONENT_IMPLEMENTATION_GUIDE.md)
+
+**Waktu estimasi:** 10 menit
+
+---
+# **TUGAS MANDIRI**
+
+## 📧 **Implementasi Contact Component**
+
+**Fitur:**
+- Validasi real-time dengan error messages
+
+**Note:**
+Component Contact saat ini menggunakan template-driven approach (tanpa Reactive Forms). Anda perlu **mengubahnya** menjadi Reactive Forms sesuai instruksi berikut
+
+**Langkah-langkah:**
+1. **Setup Component:**
+   - Import `CommonModule`, `ReactiveFormsModule`, `FormBuilder`, `Validators`
+   - Tambahkan ke array `imports` di decorator
+
+2. **Buat FormGroup:**
+   ```typescript
+   contactForm: FormGroup;
+   
+   constructor(private fb: FormBuilder) {
+     this.contactForm = this.fb.group({
+       fullName: ['', [Validators.required, Validators.minLength(2)]],
+       email: ['', [Validators.required, Validators.email]],
+       phone: ['', [Validators.required, Validators.pattern(/^[0-9+\s-]+$/)]],
+       subject: ['', [Validators.required]],
+       message: ['', [Validators.required, Validators.minLength(10)]],
+       newsletter: [false]
+     });
+   }
+   ```
+
+3. **Update Template HTML:**
+   - Bind form dengan `[formGroup]="contactForm"`
+   - Setiap input dengan `formControlName="fieldName"`
+   - Tambahkan `[class.is-invalid]` untuk visual feedback
+   - Implementasi error messages dengan `*ngIf`
+   - Submit button dengan `(ngSubmit)="submitContact()"`
+   - Button disabled dengan `[disabled]="contactForm.invalid"`
+
+4. **Implementasi Submit Handler:**
+   ```typescript
+   submitContact(): void {
+     if (this.contactForm.valid) {
+       const formData = this.contactForm.value;
+       console.log('Contact form submitted', formData);
+       // TODO: Kirim ke backend API
+     }
+   }
+   ```
+
+5. **Validasi yang harus diimplementasikan:**
+   - Nama: required, minimal 2 karakter
+   - Email: required, format email valid
+   - Phone: required, hanya angka/+/-/spasi
+   - Subject: required, pilih dari dropdown
+   - Message: required, minimal 10 karakter
+   - Newsletter: optional checkbox
+
+6. **Error Messages:**
+   - "Field harus diisi" untuk required
+   - "Minimal X karakter" untuk minLength
+   - "Format email tidak valid" untuk email
+   - "Format nomor telepon tidak valid" untuk pattern
+
+7. **Testing:**
+   - Test semua validasi (required, minLength, email, pattern)
+   - Test error messages muncul saat touched & invalid
+   - Test submit button disabled saat form invalid
+   - Test form submission dengan data valid
+   - Test reset button untuk clear form
+
+**Contoh Potongan Form Contact:**
+```html
+<form [formGroup]="contactForm" (ngSubmit)="submitContact()">
+  <div class="mb-4">
+    <label for="fullName" class="form-label fw-semibold">
+      <i class="bi bi-person-fill me-2"></i>Nama Lengkap
+    </label>
+    <input 
+      type="text" 
+      class="form-control form-control-lg" 
+      id="fullName" 
+      formControlName="fullName"
+      [class.is-invalid]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched">
+    <div class="invalid-feedback" *ngIf="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched">
+      <div *ngIf="contactForm.get('fullName')?.errors?.['required']">
+        Nama lengkap harus diisi
+      </div>
+      <div *ngIf="contactForm.get('fullName')?.errors?.['minlength']">
+        Nama minimal 2 karakter
+      </div>
+    </div>
+  </div>
+  <!-- Repeat untuk fields lainnya -->
+</form>
 ```
 
-### Step 5: Lanjut ke Phase 3 (Detail Page)
+**📋 Checklist Implementasi:**
+- [ ] Import `ReactiveFormsModule`, `FormBuilder`, `Validators`
+- [ ] Tambahkan imports ke component decorator
+- [ ] Buat `FormGroup` dengan `FormBuilder` di constructor
+- [ ] Definisikan semua 6 form controls (fullName, email, phone, subject, message, newsletter)
+- [ ] Implementasi validasi untuk setiap field
+- [ ] Update template dengan `[formGroup]` binding
+- [ ] Tambahkan `formControlName` ke setiap input
+- [ ] Implementasi conditional error messages dengan `*ngIf`
+- [ ] Tambahkan `[class.is-invalid]` untuk visual feedback
+- [ ] Implementasi `submitContact()` method
+- [ ] Test semua validasi manual
+- [ ] Verify console log saat submit
 
-```bash
-# Pindah ke branch selanjutnya
-git checkout home-component-detail-impl
+**Waktu estimasi:** 45 menit
 
-# Baca dokumentasi lanjutan
-HOME_COMPONENT_DETAIL_PAGE_GUIDE.md
+---
 
-# Jalankan aplikasi
-npm start
-```
+### 👤 **4. Implementasi Profile Component (Basic & Modularitas)**
+
+**Tujuan:** Membuat halaman profil pengguna di Griya MDP.
+
+**📚 Dokumentasi Lengkap:** 
+- [PROFILE_COMPONENT_BASIC_GUIDE](./PROFILE_COMPONENT_BASIC_GUIDE.md) - Basic
+- [PROFILE_COMPONENT_MODULARISASI](./PROFILE_COMPONENT_MODULARISASI_GUIDE.md) - Modularisasi
+
+**Waktu estimasi:** 1 jam
+---
+
+## Resources & References
+
+### Official Documentation
+- [Angular Documentation](https://angular.dev)
+- [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
+- [Bootstrap 5 Docs](https://getbootstrap.com/docs/5.3)
+- [Bootstrap Icons](https://icons.getbootstrap.com)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs)
+
+### Component Guides
+- [Register Component Guide](./REGISTER_COMPONENT_GUIDE.md) - Panduan lengkap implementasi Register
+- [Login Component Guide](./LOGIN_COMPONENT_GUIDE.md) - Panduan lengkap implementasi Login
+- [Contact Component Guide](./CONTACT_COMPONENT_IMPLEMENTATION_GUIDE.md) - Panduan lengkap implementasi Contact
+- [Profile Component Guide - Basic](./PROFILE_COMPONENT_BASIC_GUIDE.md) - Panduan lengkap implementasi Halaman Profile (Basic)
+- [Profile Component Guide - Modularity](./PROFILE_COMPONENT_MODULARISASI_GUIDE.md) - Panduan lengkap implementasi Halaman Profile (Modularitas)
+
+### Tutorials & Examples
+- [Angular Forms Tutorial](https://angular.dev/guide/forms)
+- [Form Validation Examples](https://angular.dev/guide/forms/form-validation)
+- [Bootstrap Form Examples](https://getbootstrap.com/docs/5.3/forms/overview/)
+
+---
+
+**Happy Coding! 🚀**
