@@ -12,7 +12,19 @@
         <!-- Contact Form Card -->
         <div class="card shadow-lg border-0">
           <div class="card-body p-4 p-md-5">
-            <form>
+            <!-- Success Message -->
+            <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="successMessage">
+              <i class="bi bi-check-circle-fill me-3 fs-4"></i>
+              <div>{{ successMessage }}</div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="errorMessage">
+              <i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>
+              <div>{{ errorMessage }}</div>
+            </div>
+
+            <form [formGroup]="contactForm" (ngSubmit)="submitContact()">
               <!-- Name Input -->
               <div class="mb-4">
                 <label for="fullName" class="form-label fw-semibold">
@@ -22,9 +34,21 @@
                   type="text" 
                   class="form-control form-control-lg" 
                   id="fullName" 
+                  formControlName="fullName"
+                  [class.is-invalid]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched"
                   placeholder="Masukkan nama lengkap Anda"
                   required>
-                <div class="form-text">Nama akan digunakan untuk komunikasi lebih lanjut</div>
+                <div class="invalid-feedback" *ngIf="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched">
+                  <div *ngIf="contactForm.get('fullName')?.errors?.['required']">
+                    Nama lengkap harus diisi
+                  </div>
+                  <div *ngIf="contactForm.get('fullName')?.errors?.['minlength']">
+                    Nama minimal 2 karakter
+                  </div>
+                </div>
+                <div class="form-text" *ngIf="!contactForm.get('fullName')?.touched || contactForm.get('fullName')?.valid">
+                  Nama akan digunakan untuk komunikasi lebih lanjut
+                </div>
               </div>
 
               <!-- Email Input -->
@@ -36,9 +60,21 @@
                   type="email" 
                   class="form-control form-control-lg" 
                   id="email" 
+                  formControlName="email"
+                  [class.is-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
                   placeholder="nama@example.com"
                   required>
-                <div class="form-text">Kami tidak akan membagikan email Anda kepada pihak lain</div>
+                <div class="invalid-feedback" *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                  <div *ngIf="contactForm.get('email')?.errors?.['required']">
+                    Email harus diisi
+                  </div>
+                  <div *ngIf="contactForm.get('email')?.errors?.['email']">
+                    Format email tidak valid
+                  </div>
+                </div>
+                <div class="form-text" *ngIf="!contactForm.get('email')?.touched || contactForm.get('email')?.valid">
+                  Kami tidak akan membagikan email Anda kepada pihak lain
+                </div>
               </div>
 
               <!-- Phone Input -->
@@ -50,8 +86,18 @@
                   type="tel" 
                   class="form-control form-control-lg" 
                   id="phone" 
+                  formControlName="phone"
+                  [class.is-invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
                   placeholder="+62 812-3456-7890"
                   required>
+                <div class="invalid-feedback" *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+                  <div *ngIf="contactForm.get('phone')?.errors?.['required']">
+                    Nomor telepon harus diisi
+                  </div>
+                  <div *ngIf="contactForm.get('phone')?.errors?.['pattern']">
+                    Format nomor telepon tidak valid (hanya angka, +, -, spasi)
+                  </div>
+                </div>
               </div>
 
               <!-- Subject Select -->
@@ -59,7 +105,12 @@
                 <label for="subject" class="form-label fw-semibold">
                   <i class="bi bi-chat-left-text-fill me-2"></i>Subjek
                 </label>
-                <select class="form-select form-select-lg" id="subject" required>
+                <select 
+                  class="form-select form-select-lg" 
+                  id="subject" 
+                  formControlName="subject"
+                  [class.is-invalid]="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched"
+                  required>
                   <option value="" selected disabled>Pilih subjek pertanyaan</option>
                   <option value="sewa">Informasi Sewa Properti</option>
                   <option value="beli">Informasi Beli Properti</option>
@@ -67,6 +118,11 @@
                   <option value="keluhan">Keluhan & Saran</option>
                   <option value="lainnya">Lainnya</option>
                 </select>
+                <div class="invalid-feedback" *ngIf="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched">
+                  <div *ngIf="contactForm.get('subject')?.errors?.['required']">
+                    Subjek harus dipilih
+                  </div>
+                </div>
               </div>
 
               <!-- Message Textarea -->
@@ -78,15 +134,27 @@
                   class="form-control" 
                   id="message" 
                   rows="5" 
+                  formControlName="message"
+                  [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
                   placeholder="Tulis pesan Anda di sini..."
                   required></textarea>
-                <div class="form-text">Minimal 10 karakter</div>
+                <div class="invalid-feedback" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+                  <div *ngIf="contactForm.get('message')?.errors?.['required']">
+                    Pesan harus diisi
+                  </div>
+                  <div *ngIf="contactForm.get('message')?.errors?.['minlength']">
+                    Pesan minimal 10 karakter
+                  </div>
+                </div>
+                <div class="form-text" *ngIf="!contactForm.get('message')?.touched || contactForm.get('message')?.valid">
+                  Minimal 10 karakter
+                </div>
               </div>
 
               <!-- Newsletter Checkbox -->
               <div class="mb-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="newsletter">
+                  <input class="form-check-input" type="checkbox" id="newsletter" formControlName="newsletter">
                   <label class="form-check-label" for="newsletter">
                     Saya ingin menerima newsletter dan update properti terbaru
                   </label>
@@ -95,10 +163,16 @@
 
               <!-- Submit Button -->
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg py-3">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary btn-lg py-3"
+                  [disabled]="contactForm.invalid">
                   <i class="bi bi-send-fill me-2"></i>Kirim Pesan
                 </button>
-                <button type="reset" class="btn btn-outline-secondary">
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary"
+                  (click)="resetForm()">
                   <i class="bi bi-arrow-clockwise me-2"></i>Reset Form
                 </button>
               </div>
