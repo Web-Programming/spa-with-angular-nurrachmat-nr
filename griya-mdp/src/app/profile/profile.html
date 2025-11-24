@@ -1,1 +1,142 @@
-<p>profile works!</p>
+<!-- Profile Section -->
+<section class="profile-section bg-light py-5">
+  <div class="container">
+    
+    <!-- Profile Header Component -->
+    <app-profile-header 
+      [user]="user" 
+      (edit)="onEditProfile()" 
+      (settings)="onSettings()">
+    </app-profile-header>
+
+    <div class="row g-4">
+      <!-- Left Sidebar -->
+      <div class="col-lg-4">
+        
+        <!-- Stats Card Component -->
+        <app-stats-card [stats]="stats"></app-stats-card>
+
+        <!-- About Card Component -->
+        <app-about-card [user]="user"></app-about-card>
+
+        <!-- Social Links Card Component -->
+        <app-social-card [links]="socialLinks"></app-social-card>
+
+      </div>
+
+      <!-- Right Content -->
+      <div class="col-lg-8">
+        
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs nav-fill mb-4" id="profileTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="properties-tab" data-bs-toggle="tab" 
+                    data-bs-target="#properties" type="button" role="tab">
+              <i class="bi bi-house-fill me-2"></i>Properti Saya
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="favorites-tab" data-bs-toggle="tab" 
+                    data-bs-target="#favorites" type="button" role="tab">
+              <i class="bi bi-heart-fill me-2"></i>Favorit
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="history-tab" data-bs-toggle="tab" 
+                    data-bs-target="#history" type="button" role="tab">
+              <i class="bi bi-clock-history me-2"></i>Riwayat
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="profileTabsContent">
+          
+          <!-- Properties Tab -->
+          <div class="tab-pane fade show active" id="properties" role="tabpanel">
+            <div class="row g-4">
+              
+                <!-- Property Item Components -->
+                @for (property of properties; track $index) {
+                    <div class="col-md-6">
+                        <app-property-item 
+                            [item]="property" 
+                            (edit)="onEditProperty($event)" 
+                            (remove)="onDeleteProperty($event)">
+                        </app-property-item>
+                    </div>
+                }
+
+              <!-- Add New Property Card -->
+              <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-2 border-dashed" style="border-color: #ddd;">
+                  <div class="card-body d-flex flex-column justify-content-center align-items-center text-center py-5">
+                    <i class="bi bi-plus-circle display-1 text-primary mb-3"></i>
+                    <h5 class="mb-2">Tambah Properti Baru</h5>
+                    <p class="text-muted mb-3">Daftarkan properti Anda dan mulai mendapatkan penyewa</p>
+                    <button class="btn btn-primary">
+                      <i class="bi bi-plus-lg me-2"></i>Tambah Properti
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Favorites Tab -->
+          <div class="tab-pane fade" id="favorites" role="tabpanel">
+            <div class="row g-4">
+              
+                <!-- Favorite Item Components -->
+                @for (favorite of favorites; track $index) {
+                <div class="col-md-6">
+                    <app-favorite-item [item]="favorite"></app-favorite-item>
+                </div>
+                }
+            </div>
+
+            <div class="text-center mt-4">
+              <p class="text-muted">Menampilkan {{ favorites.length }} dari {{ stats.favorites }} properti favorit</p>
+              <button class="btn btn-outline-primary">
+                <i class="bi bi-arrow-down-circle me-2"></i>Lihat Semua Favorit
+              </button>
+            </div>
+          </div>
+
+          <!-- History Tab -->
+          <div class="tab-pane fade" id="history" role="tabpanel">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                
+                <!-- History Timeline -->
+                <div class="timeline">
+                    <!-- History Item Components -->
+                    @for (item of history; track $index; let last = $last) {
+                        <app-history-item 
+                        [item]="item"
+                        [class.border-bottom-0]="last"
+                        [class.border-bottom]="!last"
+                        [class.mb-4]="!last"
+                        [class.pb-4]="!last">
+                        </app-history-item>
+                    }
+                </div>
+
+                <div class="text-center mt-4 pt-4 border-top">
+                  <button class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Muat Lebih Banyak
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
