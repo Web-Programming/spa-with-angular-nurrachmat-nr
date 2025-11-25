@@ -17,3 +17,6 @@ mongoose.connection.on("disconected", () => {
     console.log("Disconnected From MongoDB");
 });
 
+// Load models
+require("./user");
+require("./housing");
