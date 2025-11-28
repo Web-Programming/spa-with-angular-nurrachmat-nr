@@ -79,7 +79,7 @@ Untuk memahami struktur backend, endpoints, controller, model dan cara kerja aut
 - Menangani 401/403: auto-redirect ke /login dan clear session
 - Menyediakan logout yang menghapus token dan state user
 
-**📚 Dokumentasi Lengkap:** [AUTHORIZATIN_GUIDE.md](./AUTHORIZATIN_GUIDE.md)
+**📚 Dokumentasi Lengkap:** [AUTHORIZATION_GUIDE.md](./AUTHORIZATION_GUIDE.md)
 
 **Waktu Estimasi:** 35 menit
 ---
@@ -157,3 +157,4 @@ Jika mengalami kesulitan:
 ---
 
 **Happy Coding! 🚀**
+*Dibuat untuk mata kuliah Pemrograman Aplikasi Web II*
