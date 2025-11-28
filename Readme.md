@@ -1,226 +1,160 @@
-# Panduan Implementasi Griya MDP - Single Page Application
+# Panduan Implementasi Authentication API
 
 ## Deskripsi Project
-**Griya MDP** adalah aplikasi Single Page Application (SPA) berbasis Angular untuk platform properti (real estate). Aplikasi ini menyediakan fitur pencarian, detail properti, kontak, registrasi, dan login dengan desain modern menggunakan Bootstrap 5.
+Griya MDP adalah aplikasi Single Page Application (SPA) berbasis Angular dengan Express JS + MongoDB sebagai Backend.
 
-## Instalasi dan Setup
+Dokumen ini menjelaskan:
+1. Panduan implementasi project backend *griya-mdp-backend*
+2. Penjelasan Backend API terkait route, controller dan model untuk user
+3. Implementasi Register Component dengan Backend API
+4. Implementasi Login Component dengan Backend API
 
-### 1. Prerequisites
-Pastikan sudah terinstall:
-- Node.js (v20+)
-- npm (v10+)
-- Angular CLI (v18+)
+---
+## 📋 Panduan Implementasi Backend
+1. Tambahkan repository `spa-with-angular-nurrachmat-nr` sebagai remote baru di repository project anda 
 
-### 2. Install Dependencies
+```bash 
+git remote add repo-pakjr https://github.com/Web-Programming/spa-with-angular-nurrachmat-nr
+```
+2. Fetch data dari remote tersebut
+```bash 
+git fetch repo-pakjr
+```
+3. Copy folder project *griya-mdp-backend* dari branch auth-api-impl di remote tersebut
 ```bash
-cd griya-mdp
-npm install
+git checkout repo-pakjr/auth-api-impl -- griya-mdp-backend/
 ```
 
-### 3. Jalankan Development Server
-```bash
-ng serve
-```
-
-Akses aplikasi di: `http://localhost:4200`
+## 📋 Dokumentasi Backend API
+Untuk memahami struktur backend, endpoints, controller, model dan cara kerja authentication API:
+**📚 [BACKEND_API_AUTH_GUIDE.md](./BACKEND_API_AUTH_GUIDE.md)**
 
 ---
 
 ## Panduan Implementasi Components
 
-### 📝 **1. Implementasi Register Component**
-
-**Tujuan:** Membuat halaman registrasi user baru dengan validasi form yang lengkap.
+### 📝 1. Implementasi Register Component
+**Tujuan:** Membuat halaman registrasi user baru dengan validasi form yang lengkap dan integrasi Backend API.
 
 **Fitur:**
-- Form dengan 3 fields: Nama, Email, Password
-- Validasi real-time (required, minLength, email format)
-- Visual feedback (error messages, helper text)
-- Terms & Conditions checkbox
-- Benefits info cards
-- Link navigasi ke Login page
+- ✅ Implementasi Auth Service untuk API calls
+- ✅ Implementasi register method pada component register
+- ✅ Validasi password dengan confirm password field
+- ✅ Show/hide password toggle
+- ✅ Loading state saat proses registrasi
+- ✅ Success/error message dari backend
+- ✅ Auto-clear messages
 
-**📚 Dokumentasi Lengkap:** [REGISTER_COMPONENT_GUIDE.md](./REGISTER_COMPONENT_GUIDE.md)
+**📚 Dokumentasi Lengkap:** [REGISTER_API_GUIDE.md](./REGISTER_API_GUIDE.md)
 
-**Waktu estimasi:** 20 menit
+**⏱️ Waktu Estimasi:** 30 menit
 
 ---
 
-### 🔐 **2. Implementasi Login Component**
-
-**Tujuan:** Membuat halaman autentikasi untuk existing users.
+### 📝 2. Implementasi Login Component
+**Tujuan:** Membuat halaman login dengan integrasi Backend API, session management, dan auto-redirect.
 
 **Fitur:**
-- Form dengan 2 fields: Email (sebagai username), Password
-- Validasi real-time (required, email, minLength)
-- Remember Me checkbox
-- Forgot Password link
-- Social Login UI (Google & Facebook)
-- Security info alert
-- Link navigasi ke Register page
+- ✅ Implementasi login method dengan Auth Service
+- ✅ Show/hide password toggle
+- ✅ Loading state saat proses login
+- ✅ Success/error message dari backend
+- ✅ User session management dengan localStorage
+- ✅ Auto-redirect ke home setelah login berhasil
+- ✅ Form validation (email & password required)
 
-**📚 Dokumentasi Lengkap:** [LOGIN_COMPONENT_GUIDE.md](./LOGIN_COMPONENT_GUIDE.md)
+**📚 Dokumentasi Lengkap:** [LOGIN_API_GUIDE.md](./LOGIN_API_GUIDE.md)
 
-**Waktu estimasi:** 10 menit
+**⏱️ Waktu Estimasi:** 25 menit
 
 ---
 
-### 📧 **3. Implementasi Contact Component**
+### 📝 3. Implementasi Authorization dengan JWT dan Route Guard
+**Tujuan:** Mengamankan halaman dan endpoint agar hanya user terautentikasi yang dapat mengaksesnya.
 
-**Tujuan:** Membuat halaman kontak dengan form untuk menghubungi perusahaan.
+**Fokus Implementasi:**
+- Menyimpan dan membaca JWT (localStorage)
+- Menambahkan AuthInterceptor untuk header Authorization: Bearer <token>
+- Membuat AuthGuard (canActivate) untuk blok akses jika belum login atau token kadaluarsa
+- Menangani 401/403: auto-redirect ke /login dan clear session
+- Menyediakan logout yang menghapus token dan state user
 
-**📚 Dokumentasi Lengkap:** [CONTACT_COMPONENT_IMPLEMENTATION_GUIDE.md](./CONTACT_COMPONENT_IMPLEMENTATION_GUIDE.md)
+**📚 Dokumentasi Lengkap:** [AUTHORIZATION_GUIDE.md](./AUTHORIZATION_GUIDE.md)
 
-**Waktu estimasi:** 10 menit
-
+**Waktu Estimasi:** 35 menit
 ---
-# **TUGAS MANDIRI**
 
-## 📧 **Implementasi Contact Component**
+## 🚀 Quick Start
 
-**Fitur:**
-- Validasi real-time dengan error messages
-
-**Note:**
-Component Contact saat ini menggunakan template-driven approach (tanpa Reactive Forms). Anda perlu **mengubahnya** menjadi Reactive Forms sesuai instruksi berikut
-
-**Langkah-langkah:**
-1. **Setup Component:**
-   - Import `CommonModule`, `ReactiveFormsModule`, `FormBuilder`, `Validators`
-   - Tambahkan ke array `imports` di decorator
-
-2. **Buat FormGroup:**
-   ```typescript
-   contactForm: FormGroup;
-   
-   constructor(private fb: FormBuilder) {
-     this.contactForm = this.fb.group({
-       fullName: ['', [Validators.required, Validators.minLength(2)]],
-       email: ['', [Validators.required, Validators.email]],
-       phone: ['', [Validators.required, Validators.pattern(/^[0-9+\s-]+$/)]],
-       subject: ['', [Validators.required]],
-       message: ['', [Validators.required, Validators.minLength(10)]],
-       newsletter: [false]
-     });
-   }
-   ```
-
-3. **Update Template HTML:**
-   - Bind form dengan `[formGroup]="contactForm"`
-   - Setiap input dengan `formControlName="fieldName"`
-   - Tambahkan `[class.is-invalid]` untuk visual feedback
-   - Implementasi error messages dengan `*ngIf`
-   - Submit button dengan `(ngSubmit)="submitContact()"`
-   - Button disabled dengan `[disabled]="contactForm.invalid"`
-
-4. **Implementasi Submit Handler:**
-   ```typescript
-   submitContact(): void {
-     if (this.contactForm.valid) {
-       const formData = this.contactForm.value;
-       console.log('Contact form submitted', formData);
-       // TODO: Kirim ke backend API
-     }
-   }
-   ```
-
-5. **Validasi yang harus diimplementasikan:**
-   - Nama: required, minimal 2 karakter
-   - Email: required, format email valid
-   - Phone: required, hanya angka/+/-/spasi
-   - Subject: required, pilih dari dropdown
-   - Message: required, minimal 10 karakter
-   - Newsletter: optional checkbox
-
-6. **Error Messages:**
-   - "Field harus diisi" untuk required
-   - "Minimal X karakter" untuk minLength
-   - "Format email tidak valid" untuk email
-   - "Format nomor telepon tidak valid" untuk pattern
-
-7. **Testing:**
-   - Test semua validasi (required, minLength, email, pattern)
-   - Test error messages muncul saat touched & invalid
-   - Test submit button disabled saat form invalid
-   - Test form submission dengan data valid
-   - Test reset button untuk clear form
-
-**Contoh Potongan Form Contact:**
-```html
-<form [formGroup]="contactForm" (ngSubmit)="submitContact()">
-  <div class="mb-4">
-    <label for="fullName" class="form-label fw-semibold">
-      <i class="bi bi-person-fill me-2"></i>Nama Lengkap
-    </label>
-    <input 
-      type="text" 
-      class="form-control form-control-lg" 
-      id="fullName" 
-      formControlName="fullName"
-      [class.is-invalid]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched">
-    <div class="invalid-feedback" *ngIf="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched">
-      <div *ngIf="contactForm.get('fullName')?.errors?.['required']">
-        Nama lengkap harus diisi
-      </div>
-      <div *ngIf="contactForm.get('fullName')?.errors?.['minlength']">
-        Nama minimal 2 karakter
-      </div>
-    </div>
-  </div>
-  <!-- Repeat untuk fields lainnya -->
-</form>
+### 1. Setup Backend
+```bash
+cd griya-mdp-backend
+npm install
+npm start
 ```
 
-**📋 Checklist Implementasi:**
-- [ ] Import `ReactiveFormsModule`, `FormBuilder`, `Validators`
-- [ ] Tambahkan imports ke component decorator
-- [ ] Buat `FormGroup` dengan `FormBuilder` di constructor
-- [ ] Definisikan semua 6 form controls (fullName, email, phone, subject, message, newsletter)
-- [ ] Implementasi validasi untuk setiap field
-- [ ] Update template dengan `[formGroup]` binding
-- [ ] Tambahkan `formControlName` ke setiap input
-- [ ] Implementasi conditional error messages dengan `*ngIf`
-- [ ] Tambahkan `[class.is-invalid]` untuk visual feedback
-- [ ] Implementasi `submitContact()` method
-- [ ] Test semua validasi manual
-- [ ] Verify console log saat submit
+### 2. Setup Frontend
+```bash
+cd griya-mdp
+npm install
+ng serve
+```
 
-**Waktu estimasi:** 45 menit
+### 3. Test Authentication Flow
+1. Buka browser: `http://localhost:4200/register`
+2. Daftar user baru
+3. Login dengan user yang sudah terdaftar
+4. Verify redirect ke home page
 
 ---
 
-### 👤 **4. Implementasi Profile Component (Basic & Modularitas)**
+## 📖 Urutan Pembelajaran
 
-**Tujuan:** Membuat halaman profil pengguna di Griya MDP.
+**Recommended Learning Path:**
 
-**📚 Dokumentasi Lengkap:** 
-- [PROFILE_COMPONENT_BASIC_GUIDE](./PROFILE_COMPONENT_BASIC_GUIDE.md) - Basic
-- [PROFILE_COMPONENT_MODULARISASI](./PROFILE_COMPONENT_MODULARISASI_GUIDE.md) - Modularisasi
+1. **Backend API** (5 menit)
+   - Baca [BACKEND_API_AUTH_GUIDE.md](./BACKEND_API_AUTH_GUIDE.md)
+   - Pahami User Model, Auth Controller, dan Routes
+   - Test endpoints dengan Postman/REST Client
 
-**Waktu estimasi:** 1 jam
+2. **Register Component** (30 menit)
+   - Ikuti [REGISTER_API_GUIDE.md](./REGISTER_API_GUIDE.md)
+   - Buat Auth Service
+   - Integrasikan Register Component
+   - Test registrasi user
+
+3. **Login Component** (25 menit)
+   - Ikuti [LOGIN_API_GUIDE.md](./LOGIN_API_GUIDE.md)
+   - Integrasikan Login Component
+   - Implement session management
+   - Test login flow
+
+4. **Authorization** (35 menit)
+   - Ikuti [AUTHORIZATION_GUIDE.md](./AUTHORIZATIN_GUIDE.md)
+
+**Total Waktu:** ~1,5 jam
+
 ---
 
-## Resources & References
+## 📚 Resources
 
-### Official Documentation
-- [Angular Documentation](https://angular.dev)
-- [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
-- [Bootstrap 5 Docs](https://getbootstrap.com/docs/5.3)
-- [Bootstrap Icons](https://icons.getbootstrap.com)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs)
+- [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
+- [HttpClient Guide](https://angular.io/guide/http)
+- [Express.js Documentation](https://expressjs.com/)
+- [Mongoose Documentation](https://mongoosejs.com/)
+- [bcryptjs Documentation](https://www.npmjs.com/package/bcryptjs)
 
-### Component Guides
-- [Register Component Guide](./REGISTER_COMPONENT_GUIDE.md) - Panduan lengkap implementasi Register
-- [Login Component Guide](./LOGIN_COMPONENT_GUIDE.md) - Panduan lengkap implementasi Login
-- [Contact Component Guide](./CONTACT_COMPONENT_IMPLEMENTATION_GUIDE.md) - Panduan lengkap implementasi Contact
-- [Profile Component Guide - Basic](./PROFILE_COMPONENT_BASIC_GUIDE.md) - Panduan lengkap implementasi Halaman Profile (Basic)
-- [Profile Component Guide - Modularity](./PROFILE_COMPONENT_MODULARISASI_GUIDE.md) - Panduan lengkap implementasi Halaman Profile (Modularitas)
+---
 
-### Tutorials & Examples
-- [Angular Forms Tutorial](https://angular.dev/guide/forms)
-- [Form Validation Examples](https://angular.dev/guide/forms/form-validation)
-- [Bootstrap Form Examples](https://getbootstrap.com/docs/5.3/forms/overview/)
+## 👨‍💻 Support
+
+Jika mengalami kesulitan:
+1. Baca troubleshooting di dokumentasi lengkap
+2. Check console browser untuk error messages
+3. Verify backend logs
+4. Test API dengan Postman/Thunder Client
 
 ---
 
 **Happy Coding! 🚀**
+*Dibuat untuk mata kuliah Pemrograman Aplikasi Web II*
