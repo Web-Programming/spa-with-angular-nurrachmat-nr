@@ -312,6 +312,135 @@ Gunakan control flow `@if` untuk mengecek status login.
 
 ---
 
+## Langkah 7: Proteksi Route CRUD Property dengan JWT
+
+### Backend: Membuat Middleware JWT
+
+Untuk mengamankan endpoint Create, Update, dan Delete property, kita perlu membuat middleware yang memverifikasi JWT token.
+
+**Buat file baru:** `app_server/middleware/authMiddleware.js`
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+// Secret key harus sama dengan yang digunakan di authcontroller.js
+const SECRET_KEY = "kunci_rahasia_griya_mdp";
+
+/**
+ * Middleware untuk verifikasi JWT Bearer Token
+ * Token harus dikirim di header: Authorization: Bearer <token>
+ */
+const verifyToken = (req, res, next) => {
+  try {
+    // Ambil token dari Authorization header
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({
+        success: false,
+        message: "Token tidak ditemukan. Silakan login terlebih dahulu."
+      });
+    }
+
+    // Format: "Bearer <token>"
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Format token tidak valid. Gunakan: Bearer <token>"
+      });
+    }
+
+    // Verifikasi token
+    const decoded = jwt.verify(token, SECRET_KEY);
+    
+    // Simpan data user ke req.user untuk digunakan di controller
+    req.user = decoded;
+    
+    // Lanjutkan ke controller
+    next();
+
+  } catch (error) {
+    console.error("Token Verification Error:", error);
+
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        success: false,
+        message: "Token sudah expired. Silakan login kembali."
+      });
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        success: false,
+        message: "Token tidak valid."
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: "Terjadi kesalahan saat verifikasi token."
+    });
+  }
+};
+
+module.exports = { verifyToken };
+```
+
+### Update Routes Housing
+
+**File:** `app_server/routes/housing.js`
+
+Tambahkan middleware `verifyToken` pada route yang perlu diproteksi:
+
+```javascript
+const express = require("express");
+const router = express.Router();
+const housingController = require("../controllers/housingcontroller");
+const { verifyToken } = require("../middleware/authMiddleware");
+
+// Get all housing (Public - tidak perlu login)
+router.get("/", housingController.Index);
+
+// Get housing by ID (Public - tidak perlu login)
+router.get("/:id", housingController.GetById);
+
+// Create new housing (Protected - requires JWT)
+//router.post("/", verifyToken, housingController.Create);
+
+// Update housing (Protected - requires JWT)
+//router.put("/:id", verifyToken, housingController.Update);
+
+// Delete housing (Protected - requires JWT)
+//router.delete("/:id", verifyToken, housingController.Delete);
+
+module.exports = router;
+```
+
+### Testing Proteksi Route
+
+1. **Test tanpa token:**
+   - Coba panggil API POST/PUT/DELETE tanpa header Authorization
+   - Seharusnya dapat response: `401 Unauthorized - Token tidak ditemukan`
+
+2. **Test dengan token invalid:**
+   - Gunakan token random/salah
+   - Seharusnya dapat response: `401 Unauthorized - Token tidak valid`
+
+3. **Test dengan token expired:**
+   - Tunggu lebih dari 1 jam atau ubah `expiresIn` jadi `1s`
+   - Seharusnya dapat response: `401 Unauthorized - Token sudah expired`
+
+4. **Test dengan token valid:**
+   - Login terlebih dahulu, ambil token
+   - Gunakan token di header: `Authorization: Bearer <token>`
+   - Seharusnya operasi Create/Update/Delete berhasil
+
+**Catatan:** Frontend sudah otomatis mengirim token via Auth Interceptor yang dibuat di Langkah 3, jadi tidak perlu modifikasi lagi di frontend.
+
+---
+
 ## Testing
 
 1. **Test Login:** Login ulang, cek Application > Local Storage di browser. Pastikan ada key `token`.
