@@ -1,5 +1,5 @@
 {
-  "name": "griya-mdp-backend",
+  "name": "griya-mdp-backend-jwt",
   "version": "0.0.0",
   "private": true,
   "scripts": {

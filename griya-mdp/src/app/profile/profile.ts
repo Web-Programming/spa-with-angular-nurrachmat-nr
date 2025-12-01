@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { ProfileHeaderComponent } from './components/profile-header/profile-header';
 import { StatsCardComponent } from './components/stats-card/stats-card';
 import { AboutCardComponent } from './components/about-card/about-card';
@@ -8,12 +9,15 @@ import { PropertyItemComponent } from './components/property-item/property-item'
 import { FavoriteItemComponent } from './components/favorite-item/favorite-item';
 import { HistoryItemComponent } from './components/history-item/history-item';
 import { UserProfile, StatsSummary, PropertyItem, FavoriteItem, HistoryItem, SocialLinks } from './profile.models';
+import { HousingService } from '../services/housing.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     ProfileHeaderComponent,
     StatsCardComponent,
     AboutCardComponent,
@@ -26,19 +30,81 @@ import { UserProfile, StatsSummary, PropertyItem, FavoriteItem, HistoryItem, Soc
   styleUrl: './profile.css',
 })
 export class Profile {
+  constructor(
+    private housingService: HousingService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.loadUserProfile();
+    this.loadMyProperties();
+  }
+
+  loadUserProfile() {
+    this.authService.getProfile().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          const userData = response.data as any;
+          this.user = {
+            name: userData.name || 'User',
+            email: userData.email || '',
+            phone: userData.phone || '',
+            location: userData.location || '',
+            avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name || 'User')}&size=150&background=667eea&color=fff&bold=true`,
+            isPremium: false,
+            isVerified: true,
+            memberSince: userData.createdAt ? new Date(userData.createdAt).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }) : 'Baru',
+            bio: userData.bio || '',
+            job: userData.job || '',
+            birthdate: userData.birthdate || '',
+            status: userData.status || ''
+          };
+        }
+      },
+      error: (error) => {
+        console.error('Error loading user profile:', error);
+      }
+    });
+  }
+
+  loadMyProperties() {
+    this.housingService.getMyHousing().subscribe({
+      next: (response) => {
+        if (response.success && response.data) {
+          this.properties = response.data.map((housing: any) => ({
+            id: housing.id,
+            title: housing.title,
+            location: housing.location,
+            price: housing.price,
+            image: housing.image,
+            bedrooms: housing.bedrooms,
+            bathrooms: housing.bathrooms,
+            area: housing.area,
+            status: housing.status
+          }));
+          this.stats.properties = this.properties.length;
+        }
+      },
+      error: (error) => {
+        console.error('Error loading properties:', error);
+      }
+    });
+  }
+
   user: UserProfile = {
-    name: 'John Doe',
-    email: 'john.doe@email.com',
-    phone: '+62 812-3456-7890',
-    location: 'Jakarta, Indonesia',
-    avatar: 'https://ui-avatars.com/api/?name=John+Doe&size=150&background=667eea&color=fff&bold=true',
-    isPremium: true,
+    name: '',
+    email: '',
+    phone: '',
+    location: '',
+    avatar: '',
+    isPremium: false,
     isVerified: true,
-    memberSince: 'Jan 2024',
-    bio: 'Seorang profesional yang mencari properti berkualitas untuk investasi dan tempat tinggal. Tertarik dengan properti di area strategis dengan fasilitas lengkap.',
-    job: 'Software Developer',
-    birthdate: '15 Januari 1990',
-    status: 'Married'
+    memberSince: '',
+    bio: '',
+    job: '',
+    birthdate: '',
+    status: ''
   };
 
   stats: StatsSummary = {
@@ -156,8 +222,7 @@ export class Profile {
   ];
 
   onEditProfile() {
-    console.log('Edit profile clicked');
-    // Navigate to edit profile page
+    this.router.navigate(['/profile/edit']);
   }
 
   onSettings() {
@@ -166,15 +231,22 @@ export class Profile {
   }
 
   onEditProperty(propertyId: number) {
-    console.log('Edit property:', propertyId);
-    // Navigate to edit property page
+    this.router.navigate(['/property/edit', propertyId]);
   }
 
   onDeleteProperty(propertyId: number) {
     if (confirm('Yakin ingin menghapus properti ini?')) {
-      //menghapus properti dari daftar
-      this.properties = this.properties.filter(p => p.id !== propertyId);
-      console.log('Property deleted:', propertyId);
+      this.housingService.deleteHousing(propertyId).subscribe({
+        next: (response) => {
+          console.log('Property deleted:', response);
+          // Reload properties after delete
+          this.loadMyProperties();
+        },
+        error: (error) => {
+          console.error('Error deleting property:', error);
+          alert('Gagal menghapus properti: ' + (error.error?.message || 'Terjadi kesalahan'));
+        }
+      });
     }
   }
 }

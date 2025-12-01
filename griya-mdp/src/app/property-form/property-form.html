@@ -1,0 +1,280 @@
+<!-- Property Form Section -->
+<section class="property-form-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+          <h1 class="display-4 fw-bold text-primary mb-3">
+            <i class="bi bi-house-add me-3"></i>
+            {{ isEditMode ? 'Edit Properti' : 'Tambah Properti Baru' }}
+          </h1>
+          <p class="lead text-muted">
+            {{ isEditMode ? 'Perbarui informasi properti Anda' : 'Daftarkan properti Anda dan mulai mendapatkan penyewa' }}
+          </p>
+        </div>
+
+        <!-- Property Form Card -->
+        <div class="card shadow-lg border-0">
+          <div class="card-body p-4 p-md-5">
+            
+            <!-- Success Alert -->
+            @if (successMessage) {
+              <div class="alert alert-success d-flex align-items-center" role="alert">
+                <i class="bi bi-check-circle-fill me-3 fs-4"></i>
+                <div>{{ successMessage }}</div>
+              </div>
+            }
+
+            <!-- Error Alert -->
+            @if (errorMessage) {
+              <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>
+                <div>{{ errorMessage }}</div>
+              </div>
+            }
+
+            <form [formGroup]="propertyForm" (ngSubmit)="submitForm()">
+              <!-- Title -->
+              <div class="mb-4">
+                <label for="title" class="form-label fw-semibold">
+                  <i class="bi bi-house-fill me-2"></i>Judul Properti *
+                </label>
+                <input 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  id="title"
+                  formControlName="title"
+                  [class.is-invalid]="propertyForm.get('title')?.invalid && propertyForm.get('title')?.touched"
+                  placeholder="Contoh: Rumah Minimalis Modern">
+                <div class="invalid-feedback" *ngIf="propertyForm.get('title')?.invalid && propertyForm.get('title')?.touched">
+                  Judul minimal 3 karakter
+                </div>
+                <div class="form-text" *ngIf="!propertyForm.get('title')?.touched || propertyForm.get('title')?.valid">
+                  Gunakan judul yang menarik dan deskriptif
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="mb-4">
+                <label for="location" class="form-label fw-semibold">
+                  <i class="bi bi-geo-alt-fill me-2"></i>Lokasi *
+                </label>
+                <input 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  id="location"
+                  formControlName="location"
+                  [class.is-invalid]="propertyForm.get('location')?.invalid && propertyForm.get('location')?.touched"
+                  placeholder="Contoh: Jakarta Selatan">
+                <div class="invalid-feedback" *ngIf="propertyForm.get('location')?.invalid && propertyForm.get('location')?.touched">
+                  Lokasi harus diisi
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="mb-4">
+                <label for="price" class="form-label fw-semibold">
+                  <i class="bi bi-currency-dollar me-2"></i>Harga Sewa per Bulan (Rp) *
+                </label>
+                <input 
+                  type="number" 
+                  class="form-control form-control-lg" 
+                  id="price"
+                  formControlName="price"
+                  [class.is-invalid]="propertyForm.get('price')?.invalid && propertyForm.get('price')?.touched"
+                  placeholder="5000000">
+                <div class="invalid-feedback" *ngIf="propertyForm.get('price')?.invalid && propertyForm.get('price')?.touched">
+                  Harga harus diisi dan lebih dari 0
+                </div>
+                <div class="form-text" *ngIf="!propertyForm.get('price')?.touched || propertyForm.get('price')?.valid">
+                  Masukkan harga dalam Rupiah tanpa titik atau koma
+                </div>
+              </div>
+
+              <!-- Property Details Row -->
+              <div class="row mb-4">
+                <!-- Bedrooms -->
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <label for="bedrooms" class="form-label fw-semibold">
+                    <i class="bi bi-door-closed-fill me-2"></i>Kamar Tidur *
+                  </label>
+                  <input 
+                    type="number" 
+                    class="form-control form-control-lg" 
+                    id="bedrooms"
+                    formControlName="bedrooms"
+                    [class.is-invalid]="propertyForm.get('bedrooms')?.invalid && propertyForm.get('bedrooms')?.touched"
+                    min="1">
+                  <div class="invalid-feedback" *ngIf="propertyForm.get('bedrooms')?.invalid && propertyForm.get('bedrooms')?.touched">
+                    Minimal 1 kamar tidur
+                  </div>
+                </div>
+
+                <!-- Bathrooms -->
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <label for="bathrooms" class="form-label fw-semibold">
+                    <i class="bi bi-droplet-fill me-2"></i>Kamar Mandi *
+                  </label>
+                  <input 
+                    type="number" 
+                    class="form-control form-control-lg" 
+                    id="bathrooms"
+                    formControlName="bathrooms"
+                    [class.is-invalid]="propertyForm.get('bathrooms')?.invalid && propertyForm.get('bathrooms')?.touched"
+                    min="1">
+                  <div class="invalid-feedback" *ngIf="propertyForm.get('bathrooms')?.invalid && propertyForm.get('bathrooms')?.touched">
+                    Minimal 1 kamar mandi
+                  </div>
+                </div>
+
+                <!-- Area -->
+                <div class="col-md-4">
+                  <label for="area" class="form-label fw-semibold">
+                    <i class="bi bi-rulers me-2"></i>Luas (m²) *
+                  </label>
+                  <input 
+                    type="number" 
+                    class="form-control form-control-lg" 
+                    id="area"
+                    formControlName="area"
+                    [class.is-invalid]="propertyForm.get('area')?.invalid && propertyForm.get('area')?.touched"
+                    min="1">
+                  <div class="invalid-feedback" *ngIf="propertyForm.get('area')?.invalid && propertyForm.get('area')?.touched">
+                    Luas harus lebih dari 0
+                  </div>
+                </div>
+              </div>
+
+              <!-- Image URL -->
+              <div class="mb-4">
+                <label for="image" class="form-label fw-semibold">
+                  <i class="bi bi-image-fill me-2"></i>URL Gambar *
+                </label>
+                <input 
+                  type="text" 
+                  class="form-control form-control-lg" 
+                  id="image"
+                  formControlName="image"
+                  [class.is-invalid]="propertyForm.get('image')?.invalid && propertyForm.get('image')?.touched"
+                  placeholder="https://example.com/image.jpg">
+                <div class="invalid-feedback" *ngIf="propertyForm.get('image')?.invalid && propertyForm.get('image')?.touched">
+                  URL gambar harus diisi
+                </div>
+                <div class="form-text" *ngIf="!propertyForm.get('image')?.touched || propertyForm.get('image')?.valid">
+                  Gunakan URL gambar dari Unsplash, Pexels, atau sumber lainnya
+                </div>
+              </div>
+
+              <!-- Property Type & Status Row -->
+              <div class="row mb-4">
+                <!-- Type -->
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <label for="type" class="form-label fw-semibold">
+                    <i class="bi bi-building me-2"></i>Tipe Properti *
+                  </label>
+                  <select 
+                    class="form-select form-select-lg" 
+                    id="type"
+                    formControlName="type"
+                    [class.is-invalid]="propertyForm.get('type')?.invalid && propertyForm.get('type')?.touched">
+                    <option value="rumah">Rumah</option>
+                    <option value="apartemen">Apartemen</option>
+                    <option value="villa">Villa</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="propertyForm.get('type')?.invalid && propertyForm.get('type')?.touched">
+                    Tipe properti harus dipilih
+                  </div>
+                </div>
+
+                <!-- Status -->
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <label for="status" class="form-label fw-semibold">
+                    <i class="bi bi-flag-fill me-2"></i>Status *
+                  </label>
+                  <select 
+                    class="form-select form-select-lg" 
+                    id="status"
+                    formControlName="status"
+                    [class.is-invalid]="propertyForm.get('status')?.invalid && propertyForm.get('status')?.touched">
+                    <option value="Available">Available</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Sold">Sold</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="propertyForm.get('status')?.invalid && propertyForm.get('status')?.touched">
+                    Status harus dipilih
+                  </div>
+                </div>
+
+                <!-- Rating -->
+                <div class="col-md-4">
+                  <label for="rating" class="form-label fw-semibold">
+                    <i class="bi bi-star-fill me-2"></i>Rating (0-5)
+                  </label>
+                  <input 
+                    type="number" 
+                    class="form-control form-control-lg" 
+                    id="rating"
+                    formControlName="rating"
+                    [class.is-invalid]="propertyForm.get('rating')?.invalid && propertyForm.get('rating')?.touched"
+                    min="0" max="5" step="0.1"
+                    placeholder="4.5">
+                  <div class="invalid-feedback" *ngIf="propertyForm.get('rating')?.invalid && propertyForm.get('rating')?.touched">
+                    Rating harus antara 0-5
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-4">
+                <label for="description" class="form-label fw-semibold">
+                  <i class="bi bi-pencil-fill me-2"></i>Deskripsi Properti
+                </label>
+                <textarea 
+                  class="form-control" 
+                  id="description"
+                  rows="5"
+                  formControlName="description"
+                  [class.is-invalid]="propertyForm.get('description')?.invalid && propertyForm.get('description')?.touched"
+                  placeholder="Deskripsikan properti Anda secara detail, termasuk fasilitas, lingkungan sekitar, dan keunggulan lainnya..."></textarea>
+                <div class="form-text" *ngIf="!propertyForm.get('description')?.touched || propertyForm.get('description')?.valid">
+                  Deskripsi yang detail akan menarik lebih banyak calon penyewa
+                </div>
+              </div>
+
+              <!-- Submit Buttons -->
+              <div class="d-grid gap-2">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary btn-lg py-3"
+                  [disabled]="propertyForm.invalid || isLoading">
+                  @if (isLoading) {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                  }
+                  @if (!isLoading) {
+                    <i class="bi bi-save-fill me-2"></i>
+                  }
+                  {{ isEditMode ? 'Update Properti' : 'Simpan Properti' }}
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary"
+                  (click)="goBack()">
+                  <i class="bi bi-arrow-left me-2"></i>Kembali ke Profile
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Information Alert -->
+        <div class="alert alert-info d-flex align-items-center mt-4" role="alert">
+          <i class="bi bi-info-circle-fill me-3 fs-4"></i>
+          <div>
+            <strong>Tips:</strong> Pastikan semua informasi yang Anda masukkan akurat dan lengkap. Properti dengan informasi lengkap dan gambar berkualitas cenderung mendapat lebih banyak peminat.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

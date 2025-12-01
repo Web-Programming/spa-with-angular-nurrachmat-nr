@@ -6,6 +6,10 @@ const housingSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    userId: {
+        type: String,
+        required: false
+    },
     title: {
         type: String,
         required: true

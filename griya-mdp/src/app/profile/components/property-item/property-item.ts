@@ -15,6 +15,8 @@ export class PropertyItemComponent {
   @Output() remove = new EventEmitter<number>();
 
   onEdit() {
+    console.log(this.item.id);
+    
     this.edit.emit(this.item.id);
   }
 

@@ -22,6 +22,36 @@ const userSchema = new mongoose.Schema({
     required: [true, "Password harus diisi"],
     minlength: [6, "Password minimal 6 karakter"]
   },
+  phone: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  location: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  bio: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  job: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  birthdate: {
+    type: String,
+    required: false
+  },
+  status: {
+    type: String,
+    required: false,
+    enum: ['Single', 'Married', 'Divorced', ''],
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now

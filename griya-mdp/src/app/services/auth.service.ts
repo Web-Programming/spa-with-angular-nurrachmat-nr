@@ -55,12 +55,20 @@ export class AuthService {
   }
 
   /**
-   * Get user profile by ID
-   * @param userId - ID user
+   * Get user profile (menggunakan JWT token)
    * @returns Observable dengan data user
    */
-  getProfile(userId: string): Observable<AuthResponse> {
-    return this.http.get<AuthResponse>(`${this.apiUrl}/profile/${userId}`);
+  getProfile(): Observable<AuthResponse> {
+    return this.http.get<AuthResponse>(`${this.apiUrl}/profile`);
+  }
+
+  /**
+   * Update user profile (menggunakan JWT token)
+   * @param data - Data profile yang akan diupdate
+   * @returns Observable dengan response dari backend
+   */
+  updateProfile(data: any): Observable<AuthResponse> {
+    return this.http.put<AuthResponse>(`${this.apiUrl}/profile`, data);
   }
 
   /**
